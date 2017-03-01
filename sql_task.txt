@@ -1,0 +1,50 @@
+1) Get all statuses, not repeating, alphabetically ordered - SELECT DISTINCT status FROM tasks ORDER BY status;
+
+2) Get the count of all tasks in each project, order by tasks count descending -
+
+SELECT COUNT(*) AS count, projects.name
+FROM tasks INNER JOIN projects
+ON project_id = projects.id
+GROUP BY projects.name
+ORDER BY count DESC;
+
+3) Get the count of all tasks in each project, order by projects names
+
+SELECT name, (SELECT COUNT(*) FROM tasks
+WHERE project_id = projects.id)
+FROM projects ORDER BY name;
+
+4) Get the tasks for all projects having the name beginning with “N” letter - SELECT * FROM tasks WHERE name like 'N%';
+
+5) Get the list of all projects containing the ‘a’ letter in the middle of the name, and
+show the tasks count near each project. Mention that there can exist projects without
+tasks and tasks with project_id=NULL
+
+SELECT projects.name, COUNT(tasks.id) FROM projects
+RIGHT JOIN tasks ON projects.id = project_id
+WHERE projects.name LIKE '%a%' GROUP BY projects.name;
+
+6) Get the list of tasks with duplicate names. Order alphabetically
+
+SELECT * FROM tasks
+INNER JOIN
+(SELECT tasks.name FROM tasks
+GROUP BY tasks.name HAVING COUNT(*) > 1 ) buf
+ON tasks.name = buf.name
+ORDER BY tasks.name;
+
+7) Get the list of tasks having several exact matches of both name and status, from
+the project ‘Garage’. Order by matches count
+
+SELECT tasks.name, tasks.id, tasks.status FROM tasks
+INNER JOIN (SELECT id, status, name FROM tasks GROUP BY status HAVING count(id) > 1) buf ON tasks.status = buf.status
+WHERE project_id = (SELECT id FROM projects WHERE name = 'GARAGE')
+ORDER BY tasks.name;
+
+8) Get the list of project names having more than 10 tasks in status ‘completed’. Order
+by project_id
+
+SELECT name FROM projects WHERE
+(SELECT COUNT(*) FROM tasks
+WHERE tasks.project_id = projects.id AND tasks.status = 'completed') > 10
+ORDER BY id;
