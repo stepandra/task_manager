@@ -35,14 +35,14 @@
         deleteTask(e) {
           e.preventDefault()
 
-          this.$http.delete(`http://localhost:3000/task/${this.task.id}`)
+          this.$http.delete(`/task/${this.task.id}`)
                     .then((response) => {
                       this.getProjects()
                     })
         },
         updateTask(task) {
           this.beforeEditCache = task.name
-          this.$http.put(`http://localhost:3000/task/${this.task.id}`, { name: this.task.name, status: this.task.status, priority: this.task.priority })
+          this.$http.put(`/task/${this.task.id}`, { name: this.task.name, status: this.task.status, priority: this.task.priority })
                     .then((response) => {
                       this.getProjects()
                     })

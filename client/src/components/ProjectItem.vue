@@ -89,7 +89,7 @@ a.list-group-item:focus {
                 <span class=" uk-logo" uk-icon="icon: plus; ratio:1.5"></span>
             </div>
             <form class="uk-navbar-item uk-width-expand uk-padding-remove-horizontal">
-                <input type="text" class="uk-input uk-width-2-3" placeholder="Search" v-model="task">
+                <input type="text" class="uk-input uk-width-2-3" placeholder="Add new task" v-model="task">
                 <button class="uk-button uk-button-primary" v-on:click="addTask" type="button">Add task</button>
             </form>
         </nav>
@@ -124,7 +124,7 @@ export default {
     updateProject(project) {
       this.beforeEditCache = project.name
       var serverDate = this.backEndDateFormat(project.deadline);
-      this.$http.put(`http://localhost:3000/project/${this.project.id}`, { name: project.name, deadline: serverDate })
+      this.$http.put(`/project/${this.project.id}`, { name: project.name, deadline: serverDate })
                 .then((response) => {
                   this.getProjects()
                 })
@@ -140,7 +140,7 @@ export default {
     deleteProject(e) {
       e.preventDefault()
 
-      this.$http.delete(`http://localhost:3000/project/${this.project.id}`)
+      this.$http.delete(`/project/${this.project.id}`)
                 .then((response) => {
                   this.getProjects()
                 })
@@ -148,7 +148,7 @@ export default {
     addTask(e) {
       e.preventDefault()
 
-      this.$http.post('http://localhost:3000/addTask', {
+      this.$http.post('/addTask', {
         name: this.task,
         status: 'f',
         project_id: this.project.id,
@@ -170,7 +170,7 @@ export default {
   data() {
     return {
       task: '',
-      seen: true,
+      seen: false,
       dateinput: false,
       date: null,
       editedProject: null,

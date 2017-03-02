@@ -9,7 +9,7 @@
                     Add project</button>
                 <div id="my-id" uk-modal>
                     <div class="uk-modal-dialog uk-modal-body">
-                        <input type="text" class="uk-input uk-width-2-3" placeholder="Search" v-model="projectname">
+                        <input type="text" class="uk-input uk-width-2-3" placeholder="Project name" v-model="projectname">
                         <button class="uk-modal-close uk-button uk-button-primary" type="button" v-on:click="addProject"> Add project</button>
                     </div>
                 </div>
@@ -37,7 +37,7 @@ export default {
 
     getProjects() {
 
-      this.$http.get('http://localhost:3000/data')
+      this.$http.get('/data')
                 .then(
                     (response) => this.projects = response.body,
                     (err) => console.error(err)
@@ -47,7 +47,7 @@ export default {
     addProject(e) {
       e.preventDefault()
       var deadlineFormat = moment().format('YYYY-MM-DD');
-      this.$http.post('http://localhost:3000/addProject', {projectname: this.projectname, deadline: deadlineFormat})
+      this.$http.post('/addProject', {projectname: this.projectname, deadline: deadlineFormat})
                 .then(
                   (response) => this.getProjects(),
                   (err) => console.error(err)
