@@ -89,10 +89,11 @@ a.list-group-item:focus {
                 <span class=" uk-logo" uk-icon="icon: plus; ratio:1.5"></span>
             </div>
             <form class="uk-navbar-item uk-width-expand uk-padding-remove-horizontal">
-                <input type="text" class="uk-input uk-width-2-3" placeholder="Add new task" v-model="task">
-                <button class="uk-button uk-button-primary" v-on:click="addTask" type="button">Add task</button>
+                <input type="text" name="task" v-validate="'required|min:3|max:32'" :class="{'uk-input uk-width-2-3': true, 'uk-form-danger': errors.has('task'), 'uk-form-success': fields.passed('task') }" placeholder="Add new task" v-model="task">
+                <button class="uk-button uk-button-primary" type="button" @click="addTask">Add task</button>
             </form>
         </nav>
+        <p class="uk-text-danger uk-margin-top" v-if="errors.has('task')">{{ errors.first('task') }}</p>
         <ul class="uk-list uk-list-divider">
             <task-item v-for="task in filter" v-bind:task="task" :get-projects="getProjects" />
             </li>
@@ -147,20 +148,32 @@ export default {
     },
     addTask(e) {
       e.preventDefault()
+      this.$validator.validateAll().then(result => {
+      	if (! result) {
+        	console.log('Error');
+          return;
+        }
 
       this.$http.post('/addTask', {
         name: this.task,
-        status: 'f',
+        status: false,
         project_id: this.project.id,
-        priority: '1',
+        priority: 1,
       })
             .then((response) => {
               this.getProjects()
+
               this.task = ''
             })
             .catch((err) => {
               console.log(err)
             })
+      setTimeout(() => {
+        this.errors.clear();
+        console.log(this.errors)
+      }, 100);
+
+});
     },
     editProject(project) {
       this.beforeEditCache = project.name

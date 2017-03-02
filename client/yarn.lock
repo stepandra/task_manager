@@ -1199,13 +1199,7 @@ de-indent@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/de-indent/-/de-indent-1.0.2.tgz#b2038e846dc33baa5796128d0804b455b8c1e21d"
 
-debug@^2.1.1, debug@^2.2.0:
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.1.tgz#79855090ba2c4e3115cc7d8769491d58f0491351"
-  dependencies:
-    ms "0.7.2"
-
-debug@~2.2.0:
+debug@^2.1.1, debug@^2.2.0, debug@~2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.2.0.tgz#f87057e995b1a1f6ae6a4960664137bc56f039da"
   dependencies:
@@ -1633,7 +1627,7 @@ expand-range@^1.8.1:
   dependencies:
     fill-range "^2.1.0"
 
-express@^4.13.3:
+express@^4.13.3, express@^4.14.1:
   version "4.14.1"
   resolved "https://registry.yarnpkg.com/express/-/express-4.14.1.tgz#646c237f766f148c2120aff073817b9e4d7e0d33"
   dependencies:
@@ -4048,6 +4042,10 @@ validate-npm-package-license@^3.0.1:
 vary@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.0.tgz#e1e5affbbd16ae768dd2674394b9ad3022653140"
+
+vee-validate@^2.0.0-beta.23:
+  version "2.0.0-beta.23"
+  resolved "https://registry.yarnpkg.com/vee-validate/-/vee-validate-2.0.0-beta.23.tgz#c8f6db2047653dc15ed0d256e15553d3d107a2ce"
 
 vendors@^1.0.0:
   version "1.0.1"
