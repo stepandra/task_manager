@@ -8,15 +8,15 @@ const options = {
 const pgp = require('pg-promise')(options);
 
 // TODO: move to config file
-const cn = {
-    host: 'localhost',
-    port: 5432,
-    database: 'task_manager',
-    user: 'admin',
-    password: 'root123',
-};
+// const cn = {
+//     host: process.env.DATABASE_URL,
+//     port: 5432,
+//     database: 'task_manager',
+//     user: 'admin',
+//     password: 'root123',
+// };
 
-const db = pgp(cn);
+const db = pgp(process.env.DATABASE_URL);
 const bodyParser = require('body-parser');
 
 const app = express();
